@@ -1,19 +1,24 @@
 package toy.blog.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class HashTag {
 
     @Id @GeneratedValue
-    @Column(name = "hashTagId")
+    @Column(name = "hash_tag_id")
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "hashTag")
+    private List<PostHashTag> postHashTags = new ArrayList<>();
 }

@@ -1,17 +1,27 @@
 package toy.blog.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+import static javax.persistence.FetchType.*;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostHashTag {
 
     @Id @GeneratedValue
-    @Column(name = "postHashTagId")
+    @Column(name = "post_hash_tag_id")
     private Long id;
 
-    private Long postId;
-    private Long hashTagId;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "hash_tag_id")
+    private HashTag hashTag;
 }
