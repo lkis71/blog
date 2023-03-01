@@ -11,8 +11,4 @@ public interface PostRepository {
     public Post findOne(Long id);
 
     public List<Post> findAll();
-
-    public void update(Long id);
-
-    public void delete(Long id);
 }

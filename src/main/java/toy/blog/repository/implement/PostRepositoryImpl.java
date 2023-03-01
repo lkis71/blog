@@ -6,7 +6,6 @@ import toy.blog.entity.Post;
 import toy.blog.repository.PostRepository;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -31,15 +30,5 @@ public class PostRepositoryImpl implements PostRepository {
                 + " join fetch PostHashTag pht"
                 + " join fetch User u")
                 .getResultList();
-    }
-
-    @Override
-    public void update(Long id) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
     }
 }

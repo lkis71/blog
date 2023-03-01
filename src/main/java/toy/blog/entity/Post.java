@@ -3,6 +3,7 @@ package toy.blog.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,8 +23,10 @@ public class Post {
     @JoinColumn(name = "user_seq")
     private User user;
 
+    @Setter
     private String title;
 
+    @Setter
     private String content;
 
     @OneToMany(mappedBy = "post")
