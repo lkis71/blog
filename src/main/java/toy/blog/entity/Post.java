@@ -19,9 +19,9 @@ public class Post {
     @Column(name = "post_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_seq")
-    private User user;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private Member member;
 
     @Setter
     private String title;
@@ -35,15 +35,25 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
+    private String useAt;
+
     private LocalDateTime registDate;
 
-    public static Post createPost(User user, String title, String content) {
+    // 생성메서드
+    public static Post createPost(Member member, String title, String content) {
 
         Post post = new Post();
-        post.user = user;
+        post.member = member;
         post.title = title;
         post.content = content;
+        post.useAt = "Y";
+        post.registDate = LocalDateTime.now();
 
         return post;
+    }
+
+    // 게시글 삭제
+    public void delete() {
+        this.useAt = "N";
     }
 }

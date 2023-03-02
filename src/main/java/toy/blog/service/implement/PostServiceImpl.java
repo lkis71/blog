@@ -25,20 +25,27 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findOne(Long id) {
-        return null;
+        return postRepository.findOne(id);
     }
 
     @Override
     public List<Post> fineAll() {
-        return null;
+        return postRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = false)
-    public Post updatePost(Long id) {
+    public Post updatePost(Long id, String title, String content) {
         Post findPost = postRepository.findOne(id);
-        findPost.setTitle("udpateTitle");
-        findPost.setContent("updateContent");
+        findPost.setTitle(title);
+        findPost.setContent(content);
         return findPost;
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void deletePost(Long id) {
+        Post findPost = postRepository.findOne(id);
+        findPost.delete();
     }
 }

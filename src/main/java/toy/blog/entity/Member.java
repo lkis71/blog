@@ -10,24 +10,23 @@ import javax.persistence.*;
 @Table(name = "users")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class Member {
 
     @Id @GeneratedValue
-    @Column(name = "user_seq")
     private Long id;
 
-    private String userId;
+    private String memberId;
 
     private String password;
 
     private String contact;
 
-    public static User createUser(String userId, String password) {
+    public static Member createUser(String memberId, String password) {
 
-        User user = new User();
-        user.userId = userId;
-        user.password = password;
+        Member member = new Member();
+        member.memberId = memberId;
+        member.password = password;
 
-        return user;
+        return member;
     }
 }
