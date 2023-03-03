@@ -20,10 +20,11 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
     @Setter
+    @Column(nullable = false)
     private String title;
 
     @Setter

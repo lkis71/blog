@@ -15,13 +15,14 @@ public class Member {
     @Id @GeneratedValue
     private Long id;
 
+    @Column(name = "member_id", nullable = false, unique = true)
     private String memberId;
 
     private String password;
 
     private String contact;
 
-    public static Member createUser(String memberId, String password) {
+    public static Member createMember(String memberId, String password) {
 
         Member member = new Member();
         member.memberId = memberId;

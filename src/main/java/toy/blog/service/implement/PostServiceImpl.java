@@ -18,7 +18,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional(readOnly = false)
-    public Long post(Post post) {
+    public Long insert(Post post) {
         postRepository.save(post);
         return post.getId();
     }

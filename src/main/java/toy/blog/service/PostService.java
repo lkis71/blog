@@ -12,10 +12,10 @@ public interface PostService {
     /**
      * 포스팅
      *
-     * @param post
+     * @param insert
      * @return the long
      */
-    public Long post(Post post);
+    public Long insert(Post post);
 
     /**
      * 게시글 조회

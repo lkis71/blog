@@ -20,7 +20,7 @@ public class Comment {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
     @Setter
@@ -34,10 +34,13 @@ public class Comment {
 
     private LocalDateTime registDate;
 
-    public static Comment createComment(String content) {
+    public static Comment createComment(Member member, Post post, String content) {
         Comment comment = new Comment();
+        comment.member = member;
         comment.content = content;
+        comment.post = post;
         comment.useAt = "Y";
+        comment.registDate = LocalDateTime.now();
         return comment;
     }
 }

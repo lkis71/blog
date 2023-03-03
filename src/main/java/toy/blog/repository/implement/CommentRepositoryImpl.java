@@ -23,4 +23,12 @@ public class CommentRepositoryImpl implements CommentRepository {
     public Comment findOne(Long id) {
         return em.find(Comment.class, id);
     }
+
+    @Override
+    public List<Comment> findAllByPostId(Long postId) {
+        return em.createQuery("select c from Comment c"
+                + " where c.post.id = :postId")
+                .setParameter("postId", postId)
+                .getResultList();
+    }
 }

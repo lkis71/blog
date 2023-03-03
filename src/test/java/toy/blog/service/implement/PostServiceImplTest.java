@@ -27,7 +27,7 @@ class PostServiceImplTest {
         Post post = getPost();
 
         //when
-        Long postId = postService.post(post);
+        Long postId = postService.insert(post);
 
         //then
         Post finePost = postRepository.findOne(postId);
@@ -40,14 +40,17 @@ class PostServiceImplTest {
         Post post = getPost();
 
         //when
-        Long id = postService.post(post);
+        Long id = postService.insert(post);
         Post findPost = postService.findOne(id);
+
+        String title = findPost.getTitle();
+        String content = findPost.getContent();
 
         Post updatePost = postService.updatePost(id, "제목2", "내용2");
 
         //then
-        assertThat(findPost.getTitle()).isEqualTo(updatePost.getTitle());
-        assertThat(findPost.getContent()).isEqualTo(updatePost.getContent());
+        assertThat(title).isNotEqualTo(updatePost.getTitle());
+        assertThat(content).isNotEqualTo(updatePost.getContent());
     }
 
     @Test
@@ -56,7 +59,7 @@ class PostServiceImplTest {
         Post post = getPost();
 
         //when
-        Long id = postService.post(post);
+        Long id = postService.insert(post);
         postService.deletePost(id);
 
         //then
@@ -64,7 +67,7 @@ class PostServiceImplTest {
     }
 
     private Post getPost() {
-        Member member = Member.createUser("testId", "1234");
+        Member member = Member.createMember("testId", "1234");
         Post post = Post.createPost(member, "제목", "내용");
         return post;
     }
