@@ -30,17 +30,35 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    private String useAt;
-
+    private UseStatus useStatus;
     private LocalDateTime registDate;
 
-    public static Comment createComment(Member member, Post post, String content) {
-        Comment comment = new Comment();
-        comment.member = member;
-        comment.content = content;
-        comment.post = post;
-        comment.useAt = "Y";
-        comment.registDate = LocalDateTime.now();
-        return comment;
+    public static class Builder {
+
+        private Member member;
+        private Post post;
+        private String content;
+
+        public Builder(Member member, Post post) {
+            this.member = member;
+            this.post = post;
+        }
+
+        public Builder setContent(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Comment build() {
+            return new Comment(this);
+        }
+    }
+
+    public Comment(Builder builder) {
+        this.member = builder.member;
+        this.post = builder.post;
+        this.content = builder.content;
+        this.useStatus = UseStatus.USED;
+        this.registDate = LocalDateTime.now();
     }
 }

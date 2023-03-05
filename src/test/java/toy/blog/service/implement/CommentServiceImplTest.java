@@ -1,10 +1,8 @@
 package toy.blog.service.implement;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import toy.blog.entity.Comment;
 import toy.blog.entity.Member;
@@ -16,7 +14,6 @@ import toy.blog.service.PostService;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -40,12 +37,12 @@ class CommentServiceImplTest {
         //given
         boolean isSave = false;
 
-        Member member = Member.createMember("testId", "1234");
+        Member member = getMember();
 
-        Post post = Post.createPost(member, "제목1", "내용1");
-        Long postId = postService.insert(post);
+        Post post = getPost(member);
+        Long postId = postService.save(post);
 
-        Comment comment = Comment.createComment(member, post, "좋은 컨텐츠였어요!");
+        Comment comment = getComment(member, post);
         Long commentId = commentService.save(comment);
 
         //when
@@ -65,12 +62,12 @@ class CommentServiceImplTest {
         //given
         boolean isSave = false;
 
-        Member member = Member.createMember("testId", "1234");
+        Member member = getMember();
 
-        Post post = Post.createPost(member, "제목1", "내용1");
-        Long postId = postService.insert(post);
+        Post post = getPost(member);
+        Long postId = postService.save(post);
 
-        Comment comment = Comment.createComment(member, post, "좋은 컨텐츠였어요!");
+        Comment comment = getComment(member, post);
         Long commentId = commentService.save(comment);
 
         String content = comment.getContent();
@@ -80,5 +77,26 @@ class CommentServiceImplTest {
 
         //then
         assertThat(content).isNotEqualTo(updateComment.getContent());
+    }
+
+    private Member getMember() {
+        Member member = new Member.Builder("testId", "1234")
+                .setContact("010-1234-1234")
+                .build();
+        return member;
+    }
+
+    private Post getPost(Member member) {
+        Post post = new Post.Builder(member, "제목")
+                .setContent("내용")
+                .build();
+        return post;
+    }
+
+    private Comment getComment(Member member, Post post) {
+        Comment comment = new Comment.Builder(member, post)
+                .setContent("좋은 컨텐츠였어요!")
+                .build();
+        return comment;
     }
 }

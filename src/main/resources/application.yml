@@ -13,7 +13,12 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
+        show_sql: false
         format_sql: true
+
+    #true: 영속성 컨텍스트가 트랜잭션 범위를 넘어선다.
+    #false: 트랜잭션을 종료할 때 영속성 컨텍스트 또한 닫힌다.
+    open-in-view: false
 
 logging:
   level:

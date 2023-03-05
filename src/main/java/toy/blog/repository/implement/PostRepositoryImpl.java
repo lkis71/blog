@@ -26,9 +26,10 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> findAll() {
-        return em.createQuery("select p from Post p"
-                + " join fetch PostHashTag pht"
-                + " join fetch Member m", Post.class)
+        return em.createQuery(
+                "select p " +
+                        "from Post p " +
+                        "join fetch Member m", Post.class)
                 .getResultList();
     }
 }

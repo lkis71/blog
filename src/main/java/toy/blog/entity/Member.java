@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "members")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -22,12 +22,30 @@ public class Member {
 
     private String contact;
 
-    public static Member createMember(String memberId, String password) {
+    public static class Builder {
 
-        Member member = new Member();
-        member.memberId = memberId;
-        member.password = password;
+        private String memberId;
+        private String password;
+        private String contact;
 
-        return member;
+        public Builder(String memberId, String password) {
+            this.memberId = memberId;
+            this.password = password;
+        }
+
+        public Builder setContact(String contact) {
+            this.contact = contact;
+            return this;
+        }
+
+        public Member build() {
+            return new Member(this);
+        }
+    }
+
+    public Member(Builder builder) {
+        this.memberId = builder.memberId;
+        this.password = builder.password;
+        this.contact = builder.contact;
     }
 }

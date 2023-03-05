@@ -30,31 +30,43 @@ public class Post {
     @Setter
     private String content;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<PostHashTag> postHashTags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
-    private List<Comment> comments = new ArrayList<>();
-
-    private String useAt;
-
+    private UseStatus useStatus;
     private LocalDateTime registDate;
 
-    // 생성메서드
-    public static Post createPost(Member member, String title, String content) {
+    public static class Builder {
 
-        Post post = new Post();
-        post.member = member;
-        post.title = title;
-        post.content = content;
-        post.useAt = "Y";
-        post.registDate = LocalDateTime.now();
+        private Member member;
+        private String title;
+        private String content;
 
-        return post;
+        public Builder(Member member, String title) {
+            this.member = member;
+            this.title = title;
+        }
+
+        public Builder setContent(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Post build() {
+            return new Post(this);
+        }
+    }
+
+    public Post(Builder builder) {
+        this.member = builder.member;
+        this.title = builder.title;
+        this.content = builder.content;
+        this.useStatus = UseStatus.USED;
+        this.registDate = LocalDateTime.now();
     }
 
     // 게시글 삭제
     public void delete() {
-        this.useAt = "N";
+        this.useStatus = UseStatus.DELETE;
     }
 }

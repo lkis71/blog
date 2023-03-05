@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toy.blog.entity.Post;
+import toy.blog.entity.PostHashTag;
+import toy.blog.repository.PostHashTagRepository;
 import toy.blog.repository.PostRepository;
 import toy.blog.service.PostService;
 
@@ -15,11 +17,13 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final PostHashTagRepository postHashTagRepository;
 
     @Override
     @Transactional(readOnly = false)
-    public Long insert(Post post) {
+    public Long save(Post post) {
         postRepository.save(post);
+
         return post.getId();
     }
 
@@ -47,5 +51,11 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long id) {
         Post findPost = postRepository.findOne(id);
         findPost.delete();
+
+        List<PostHashTag> postHashTags = postHashTagRepository.findByPostId(id);
+
+        for (PostHashTag postHashTag : postHashTags) {
+            postHashTagRepository.remove(postHashTag);
+        }
     }
 }

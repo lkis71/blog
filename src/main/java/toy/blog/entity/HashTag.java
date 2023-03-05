@@ -3,22 +3,40 @@ package toy.blog.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class HashTag {
 
     @Id @GeneratedValue
     @Column(name = "hash_tag_id")
+    @Setter
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "hashTag")
-    private List<PostHashTag> postHashTags = new ArrayList<>();
+    private Set<PostHashTag> postHashTags = new HashSet<>();
+
+    public static HashTag createHashTag(String name) {
+
+        HashTag hashTag = new HashTag();
+        hashTag.name = name;
+
+        return hashTag;
+    }
+
+    public boolean isEmpty() {
+        if (getId() == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

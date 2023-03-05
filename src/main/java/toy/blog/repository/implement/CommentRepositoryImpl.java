@@ -26,8 +26,10 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> findAllByPostId(Long postId) {
-        return em.createQuery("select c from Comment c"
-                + " where c.post.id = :postId")
+        return em.createQuery(
+                "select c " +
+                        "from Comment c " +
+                        "where c.post.id = :postId")
                 .setParameter("postId", postId)
                 .getResultList();
     }

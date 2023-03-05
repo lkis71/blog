@@ -24,4 +24,13 @@ public class PostHashTag {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "hash_tag_id")
     private HashTag hashTag;
+
+    public static PostHashTag createPostHashTag(Post post, HashTag hashTag) {
+
+        PostHashTag postHashTag = new PostHashTag();
+        postHashTag.post = post;
+        postHashTag.hashTag = hashTag;
+
+        return postHashTag;
+    }
 }
