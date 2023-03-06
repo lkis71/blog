@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import toy.blog.entity.*;
-import toy.blog.repository.HashTagRepository;
-import toy.blog.repository.PostHashTagRepository;
-import toy.blog.repository.PostRepository;
-import toy.blog.service.HashTagService;
-import toy.blog.service.PostHashTagService;
-import toy.blog.service.PostService;
+import toy.blog.post.entity.*;
+import toy.blog.post.repository.HashTagRepository;
+import toy.blog.post.repository.PostHashTagRepository;
+import toy.blog.post.repository.PostRepository;
+import toy.blog.post.service.HashTagService;
+import toy.blog.post.service.PostHashTagService;
+import toy.blog.post.service.PostService;
 
 import java.util.List;
 
@@ -118,7 +118,6 @@ class PostServiceImplTest {
     }
     
     @Test
-    @Rollback(value = false)
     public void 해시태그_삭제() throws Exception {
         //given
         Member member = getMember();
@@ -141,9 +140,7 @@ class PostServiceImplTest {
     }
 
     private Member getMember() {
-        Member member = new Member.Builder("testId", "1234")
-                .setContact("010-1234-1234")
-                .build();
+        Member member = Member.createMember("testId", "1234");
         return member;
     }
 

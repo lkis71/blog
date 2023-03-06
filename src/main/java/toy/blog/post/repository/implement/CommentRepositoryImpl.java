@@ -1,9 +1,9 @@
-package toy.blog.repository.implement;
+package toy.blog.post.repository.implement;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import toy.blog.entity.Comment;
-import toy.blog.repository.CommentRepository;
+import toy.blog.post.entity.Comment;
+import toy.blog.post.repository.CommentRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -25,11 +25,11 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> findAllByPostId(Long postId) {
+    public List<Comment> findByPostId(Long postId) {
         return em.createQuery(
                 "select c " +
                         "from Comment c " +
-                        "where c.post.id = :postId")
+                        "where c.post.id = :postId", Comment.class)
                 .setParameter("postId", postId)
                 .getResultList();
     }

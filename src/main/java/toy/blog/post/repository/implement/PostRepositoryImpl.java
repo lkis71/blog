@@ -1,9 +1,9 @@
-package toy.blog.repository.implement;
+package toy.blog.post.repository.implement;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import toy.blog.entity.Post;
-import toy.blog.repository.PostRepository;
+import toy.blog.post.entity.Post;
+import toy.blog.post.repository.PostRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;

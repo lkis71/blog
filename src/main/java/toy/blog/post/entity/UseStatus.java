@@ -1,4 +1,4 @@
-package toy.blog.entity;
+package toy.blog.post.entity;
 
 public enum UseStatus {
     USED, DELETE

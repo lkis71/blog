@@ -1,9 +1,9 @@
-package toy.blog.repository.implement;
+package toy.blog.post.repository.implement;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import toy.blog.entity.PostHashTag;
-import toy.blog.repository.PostHashTagRepository;
+import toy.blog.post.entity.PostHashTag;
+import toy.blog.post.repository.PostHashTagRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;

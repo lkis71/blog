@@ -1,8 +1,6 @@
-package toy.blog.service;
+package toy.blog.post.service;
 
-import toy.blog.entity.Comment;
-
-import java.util.List;
+import toy.blog.post.entity.Comment;
 
 public interface CommentService {
 

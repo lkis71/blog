@@ -1,11 +1,11 @@
-package toy.blog.service.implement;
+package toy.blog.post.service.implement;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import toy.blog.entity.Comment;
-import toy.blog.repository.CommentRepository;
-import toy.blog.service.CommentService;
+import toy.blog.post.entity.Comment;
+import toy.blog.post.repository.CommentRepository;
+import toy.blog.post.service.CommentService;
 
 @Service(value = "commentService")
 @RequiredArgsConstructor

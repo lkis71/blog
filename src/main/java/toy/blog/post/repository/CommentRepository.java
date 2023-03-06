@@ -1,6 +1,6 @@
-package toy.blog.repository;
+package toy.blog.post.repository;
 
-import toy.blog.entity.Comment;
+import toy.blog.post.entity.Comment;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface CommentRepository {
 
     public Comment findOne(Long id);
 
-    public List<Comment> findAllByPostId(Long postId);
+    public List<Comment> findByPostId(Long postId);
 }

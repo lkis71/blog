@@ -1,6 +1,6 @@
-package toy.blog.repository;
+package toy.blog.post.repository;
 
-import toy.blog.entity.PostHashTag;
+import toy.blog.post.entity.PostHashTag;
 
 import java.util.List;
 

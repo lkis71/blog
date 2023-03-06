@@ -3,14 +3,15 @@ package toy.blog.service.implement;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import toy.blog.entity.Comment;
-import toy.blog.entity.Member;
-import toy.blog.entity.Post;
-import toy.blog.repository.CommentRepository;
-import toy.blog.repository.PostRepository;
-import toy.blog.service.CommentService;
-import toy.blog.service.PostService;
+import toy.blog.post.entity.Comment;
+import toy.blog.post.entity.Member;
+import toy.blog.post.entity.Post;
+import toy.blog.post.repository.CommentRepository;
+import toy.blog.post.repository.PostRepository;
+import toy.blog.post.service.CommentService;
+import toy.blog.post.service.PostService;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ class CommentServiceImplTest {
         Long commentId = commentService.save(comment);
 
         //when
-        List<Comment> findComments = commentRepository.findAllByPostId(postId);
+        List<Comment> findComments = commentRepository.findByPostId(postId);
         for (Comment findComment : findComments) {
             if (findComment.getId() == commentId) {
                 isSave = true;
@@ -60,8 +61,6 @@ class CommentServiceImplTest {
     @Test
     public void 댓글_수정() throws Exception {
         //given
-        boolean isSave = false;
-
         Member member = getMember();
 
         Post post = getPost(member);
@@ -80,9 +79,7 @@ class CommentServiceImplTest {
     }
 
     private Member getMember() {
-        Member member = new Member.Builder("testId", "1234")
-                .setContact("010-1234-1234")
-                .build();
+        Member member = Member.createMember("testId", "1234");
         return member;
     }
 

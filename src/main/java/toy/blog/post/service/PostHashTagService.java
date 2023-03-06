@@ -1,6 +1,6 @@
-package toy.blog.service;
+package toy.blog.post.service;
 
-import toy.blog.entity.PostHashTag;
+import toy.blog.post.entity.PostHashTag;
 
 public interface PostHashTagService {
 

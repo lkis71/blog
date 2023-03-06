@@ -1,4 +1,4 @@
-package toy.blog.entity;
+package toy.blog.post.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -7,41 +7,48 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment {
+public class Post {
 
     @Id @GeneratedValue
-    @Column(name = "comment_id")
+    @Column(name = "post_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
     @Setter
+    @Column(nullable = false)
+    private String title;
+
+    @Setter
     private String content;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @OneToMany(mappedBy = "post", cascade = REMOVE)
+    private List<PostHashTag> postHashTags = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private UseStatus useStatus;
+
     private LocalDateTime registDate;
 
     public static class Builder {
 
         private Member member;
-        private Post post;
+        private String title;
         private String content;
 
-        public Builder(Member member, Post post) {
+        public Builder(Member member, String title) {
             this.member = member;
-            this.post = post;
+            this.title = title;
         }
 
         public Builder setContent(String content) {
@@ -49,16 +56,21 @@ public class Comment {
             return this;
         }
 
-        public Comment build() {
-            return new Comment(this);
+        public Post build() {
+            return new Post(this);
         }
     }
 
-    public Comment(Builder builder) {
+    public Post(Builder builder) {
         this.member = builder.member;
-        this.post = builder.post;
+        this.title = builder.title;
         this.content = builder.content;
         this.useStatus = UseStatus.USED;
         this.registDate = LocalDateTime.now();
+    }
+
+    // 게시글 삭제
+    public void delete() {
+        this.useStatus = UseStatus.DELETE;
     }
 }

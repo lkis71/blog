@@ -1,6 +1,6 @@
-package toy.blog.service;
+package toy.blog.post.service;
 
-import toy.blog.entity.Post;
+import toy.blog.post.entity.Post;
 
 import java.util.List;
 

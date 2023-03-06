@@ -1,6 +1,6 @@
-package toy.blog.repository;
+package toy.blog.post.repository;
 
-import toy.blog.entity.Post;
+import toy.blog.post.entity.Post;
 
 import java.util.List;
 
