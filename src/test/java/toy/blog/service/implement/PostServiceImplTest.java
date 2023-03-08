@@ -13,6 +13,7 @@ import toy.blog.post.service.HashTagService;
 import toy.blog.post.service.PostHashTagService;
 import toy.blog.post.service.PostService;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,6 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 class PostServiceImplTest {
+
+    @Autowired
+    EntityManager em;
 
     @Autowired
     PostService postService;
@@ -43,14 +47,19 @@ class PostServiceImplTest {
     public void 게시글_등록() throws Exception {
         //given
         Member member = getMember();
-        Post post = getPost(member);
+        Post post1 = getPost(member);
+        Post post2 = getPost(member);
 
         //when
-        Long postId = postService.save(post);
+        Long postId1 = postService.save(post1);
+        Long postId2 = postService.save(post2);
+
+        Post findPost1 = postRepository.findOne(postId1);
+        Post findPost2 = postRepository.findOne(postId2);
 
         //then
-        Post finePost = postRepository.findOne(postId);
-        assertThat(postId).isEqualTo(finePost.getId());
+        assertThat(postId1).isEqualTo(findPost1.getId());
+        assertThat(postId2).isEqualTo(findPost2.getId());
     }
 
     @Test
@@ -141,6 +150,7 @@ class PostServiceImplTest {
 
     private Member getMember() {
         Member member = Member.createMember("testId", "1234");
+        em.persist(member);
         return member;
     }
 

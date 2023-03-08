@@ -1,4 +1,4 @@
 package toy.blog.post.controller;
 
-public class CommentController {
+public class CommentApiController {
 }

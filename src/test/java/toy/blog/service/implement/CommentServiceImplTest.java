@@ -13,6 +13,7 @@ import toy.blog.post.repository.PostRepository;
 import toy.blog.post.service.CommentService;
 import toy.blog.post.service.PostService;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,6 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 class CommentServiceImplTest {
+
+    @Autowired
+    EntityManager em;
 
     @Autowired
     CommentService commentService;
@@ -80,6 +84,7 @@ class CommentServiceImplTest {
 
     private Member getMember() {
         Member member = Member.createMember("testId", "1234");
+        em.persist(member);
         return member;
     }
 
